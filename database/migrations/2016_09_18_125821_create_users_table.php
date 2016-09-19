@@ -15,17 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('mname');
-            $table->string('lname');
-            $table->date('birthday');
+            $table->string('name')->default('');
+            $table->string('mname')->default('');
+            $table->string('lname')->default('');
+            $table->date('birthday')->nullable();
             $table->text('about');
             $table->string('email', 64)->unique();
             $table->string('phone', 64)->unique();
-            $table->string('skype', 64);
-            $table->string('vk', 64);
-            $table->string('fb', 64);
-            $table->string('in', 64);
+            $table->string('skype', 64)->default('');
+            $table->string('vk', 64)->default('');
+            $table->string('fb', 64)->default('');
+            $table->string('in', 64)->default('');
             $table->dateTime('registration');
             $table->dateTime('last_login');
             $table->string('password');
@@ -50,7 +50,7 @@ class CreateUsersTable extends Migration
                 ->on('roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('activated')->comment('activated=1 deactivated=0');
+            $table->tinyInteger('activated')->comment('activated=1 deactivated=0')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
